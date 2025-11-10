@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<!-- Fragmento de navegación -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">🍽️ Sabor Gourmet</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item"><a class="nav-link" th:href="@{/clientes}">Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/mesas}">Mesas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/pedidos}">Pedidos</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/ventas}">Ventas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/inventario}">Inventario</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-danger ms-lg-3" th:href="@{/logout}">
+                        Cerrar sesión
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

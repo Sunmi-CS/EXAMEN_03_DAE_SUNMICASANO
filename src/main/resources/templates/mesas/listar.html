@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Listado de Mesas</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <h2 class="text-center mb-4">Gestión de Mesas</h2>
+
+    <div class="mb-3 text-end">
+        <a th:href="@{/mesas/nueva}" class="btn btn-primary">Nueva Mesa</a>
+    </div>
+
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Número</th>
+            <th>Capacidad</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${mesas}">
+            <td th:text="${m.idMesa}"></td>
+            <td th:text="${m.numero}"></td>
+            <td th:text="${m.capacidad}"></td>
+            <td>
+                <span th:text="${m.estado}"
+                      th:classappend="${
+                          m.estado == 'disponible' ? 'badge bg-success' :
+                          (m.estado == 'ocupada' ? 'badge bg-danger' :
+                          (m.estado == 'reservada' ? 'badge bg-warning text-dark' :
+                          'badge bg-secondary'))
+                      }">
+                </span>
+            </td>
+
+            <!-- ✅ Mostrar el cliente solo si no está disponible -->
+            <td>
+                <span th:if="${m.cliente != null and m.estado != 'disponible'}"
+                      th:text="${m.cliente.nombres + ' ' + m.cliente.apellidos}"></span>
+                <span th:if="${m.cliente == null or m.estado == 'disponible'}">—</span>
+            </td>
+
+            <td>
+                <a th:href="@{/mesas/editar/{id}(id=${m.idMesa})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/mesas/eliminar/{id}(id=${m.idMesa})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Eliminar mesa?');">Eliminar</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(mesas)}">
+            <td colspan="6" class="text-center text-muted">No hay mesas registradas</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

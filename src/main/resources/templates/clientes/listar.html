@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Clientes</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h2 class="text-center mb-4">Listado de Clientes</h2>
+    <!-- BUSCADOR -->
+    <div class="mb-3">
+        <form th:action="@{/clientes/buscar}" method="get" class="d-flex w-100">
+            <input type="text" name="buscar" class="form-control me-2 flex-grow-1"
+                   placeholder="Buscar por nombre, apellido o DNI"
+                   th:value="${buscar}" />
+            <button type="submit" class="btn btn-success me-2">Buscar</button>
+            <a th:href="@{/clientes/listar}" class="btn btn-secondary">Limpiar</a>
+        </form>
+    </div>
+    <!-- BUSCADOR -->
+
+    <div class="mb-3 text-end">
+        <a th:href="@{/clientes/nuevo}" class="btn btn-primary"> + Nuevo Cliente</a>
+    </div>
+
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.idCliente}"></td>
+            <td th:text="${c.dni}"></td>
+            <td th:text="${c.nombres + ' ' + c.apellidos}"></td>
+            <td th:text="${c.telefono}"></td>
+            <td th:text="${c.correo}"></td>
+
+            <td>
+    <span th:text="${c.estado}"
+          th:classappend="${#strings.toLowerCase(c.estado) == 'inactivo' ? 'badge bg-danger' : 'badge bg-success'}">
+    </span>
+            </td>
+
+
+
+            <td>
+                <a th:href="@{/clientes/editar/{id}(id=${c.idCliente})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/clientes/eliminar/{id}(id=${c.idCliente})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Eliminar cliente?');">Eliminar</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${cliente.idCliente == null ? 'Nuevo Cliente' : 'Editar Cliente'}"></title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <h2 th:text="${cliente.idCliente == null ? 'Registrar Cliente' : 'Editar Cliente'}"
+        class="text-center mb-4"></h2>
+
+    <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post" class="card p-4 shadow-sm">
+        <input type="hidden" th:field="*{idCliente}"/>
+
+        <div class="mb-3">
+            <label class="form-label">DNI:</label>
+            <input type="text" th:field="*{dni}" class="form-control" required/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombres:</label>
+            <input type="text" th:field="*{nombres}" class="form-control" required/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" class="form-control" required/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono:</label>
+            <input type="text" th:field="*{telefono}" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" th:field="*{correo}" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado:</label>
+            <select th:field="*{estado}" class="form-select">
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a th:href="@{/clientes}" class="btn btn-secondary">Volver</a>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
