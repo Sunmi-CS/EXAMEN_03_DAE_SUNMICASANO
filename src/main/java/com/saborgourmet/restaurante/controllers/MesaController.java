@@ -4,6 +4,7 @@ import com.saborgourmet.restaurante.domain.entities.Cliente;
 import com.saborgourmet.restaurante.domain.entities.Mesa;
 import com.saborgourmet.restaurante.domain.persistence.ClienteRepository;
 import com.saborgourmet.restaurante.domain.persistence.MesaRepository;
+import com.saborgourmet.restaurante.services.MesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,30 @@ public class MesaController {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private MesaService mesaService;
+
 
     @GetMapping
     public String listarMesas(Model model) {
         model.addAttribute("mesas", mesaRepository.findAll());
         return "mesas/listar";
     }
+
+    // ✅ Nuevo método para el buscador
+    @GetMapping("/buscar")
+    public String buscar(@RequestParam("buscar") String buscar, Model model) {
+        List<Mesa> mesas;
+        if (buscar != null && !buscar.trim().isEmpty()) {
+            mesas = mesaService.buscarPorNumeroEstadoOCliente(buscar);
+        } else {
+            mesas = mesaService.listarTodas();
+        }
+        model.addAttribute("mesas", mesas);
+        model.addAttribute("buscar", buscar);
+        return "mesas/listar";
+    }
+
 
     @GetMapping("/nueva")
     public String nuevaMesa(Model model) {

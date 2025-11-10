@@ -36,4 +36,10 @@ public class MesaServiceImpl implements MesaService {
     public List<Mesa> buscarPorEstado(String estado) {
         return mesaRepo.findByEstado(estado);
     }
+
+    @Override
+    public List<Mesa> buscarPorNumeroEstadoOCliente(String filtro) {
+        return mesaRepo.buscarPorNumeroEstadoOCliente(filtro);
+    }
+
 }

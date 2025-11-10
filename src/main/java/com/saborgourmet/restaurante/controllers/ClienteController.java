@@ -80,8 +80,15 @@ public class ClienteController {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
-        clienteService.eliminar(id);
-        return "redirect:/clientes";
+    public String eliminar(@PathVariable Long id, org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
+        try {
+            clienteService.eliminar(id);
+            redirectAttributes.addFlashAttribute("success", "Cliente eliminado correctamente.");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("error", "No se puede eliminar este cliente porque tiene mesas asignadas.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ocurrió un error al intentar eliminar el cliente.");
+        }
+        return "redirect:/clientes/listar";
     }
 }

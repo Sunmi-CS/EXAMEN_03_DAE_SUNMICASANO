@@ -9,10 +9,23 @@
 
 <body>
 <div layout:fragment="content" class="container mt-4">
+
     <h2 class="text-center mb-4">Gestión de Mesas</h2>
+    <!-- BUSCADOR -->
+    <div class="mb-3">
+        <form th:action="@{/mesas/buscar}" method="get" class="d-flex w-100">
+            <input type="text" name="buscar" class="form-control me-2 flex-grow-1"
+                   placeholder="Buscar por número, estado o cliente"
+                   th:value="${buscar}" />
+            <button type="submit" class="btn btn-success me-2">Buscar</button>
+            <a th:href="@{/mesas}" class="btn btn-secondary">Limpiar</a>
+        </form>
+    </div>
+    <!-- FIN BUSCADOR -->
+
 
     <div class="mb-3 text-end">
-        <a th:href="@{/mesas/nueva}" class="btn btn-primary">Nueva Mesa</a>
+        <a th:href="@{/mesas/nueva}" class="btn btn-primary">+ Nueva Mesa</a>
     </div>
 
     <table class="table table-bordered table-hover text-center">

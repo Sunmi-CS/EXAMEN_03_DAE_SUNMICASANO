@@ -9,4 +9,7 @@ public interface MesaService {
     Mesa guardar(Mesa mesa);
     void eliminar(Long id);
     List<Mesa> buscarPorEstado(String estado);
+
+    List<Mesa> buscarPorNumeroEstadoOCliente(String filtro);
+
 }

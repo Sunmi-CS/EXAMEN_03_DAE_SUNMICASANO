@@ -30,7 +30,15 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void eliminar(Long id) {
-        clienteRepository.deleteById(id);
+        try {
+            clienteRepository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // 🔹 Re-lanzamos la excepción para que el controlador la maneje
+            throw e;
+        } catch (Exception e) {
+            // 🔹 Cualquier otro error se maneja genéricamente
+            throw new RuntimeException("Error al eliminar el cliente", e);
+        }
     }
 
     @Override

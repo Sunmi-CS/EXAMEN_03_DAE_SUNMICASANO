@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Acceso Denegado</title>
 </head>
 <body>
-
+<div layout:fragment="content" class="container text-center mt-5">
+    <h2 class="text-danger">🚫 Acceso Denegado</h2>
+    <p>No tienes permisos para acceder a esta página.</p>
+    <a th:href="@{/clientes}" class="btn btn-primary mt-3">Volver al inicio</a>
+</div>
 </body>
 </html>
