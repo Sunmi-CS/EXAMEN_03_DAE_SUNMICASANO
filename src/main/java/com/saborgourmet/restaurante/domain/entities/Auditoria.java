@@ -1,85 +1,48 @@
 package com.saborgourmet.restaurante.domain.entities;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "auditoria")
-public class Auditoria implements Serializable {
+public class Auditoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private LocalDateTime fecha;
     private String tabla;
-
-    @Column(name = "id_registro")
+    private String tipo; // INSERT, UPDATE, DELETE, etc.
     private Long idRegistro;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
-
     private String usuario;
-
-    private String tipo; // crear, actualizar, eliminar
 
     public Auditoria() {}
 
-    public Auditoria(String tabla, Long idRegistro, Date fecha, String usuario, String tipo) {
-        this.tabla = tabla;
-        this.idRegistro = idRegistro;
+    public Auditoria(LocalDateTime fecha, String tabla, String tipo, Long idRegistro, String usuario) {
         this.fecha = fecha;
-        this.usuario = usuario;
+        this.tabla = tabla;
         this.tipo = tipo;
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTabla() {
-        return tabla;
-    }
-
-    public void setTabla(String tabla) {
-        this.tabla = tabla;
-    }
-
-    public Long getIdRegistro() {
-        return idRegistro;
-    }
-
-    public void setIdRegistro(Long idRegistro) {
         this.idRegistro = idRegistro;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
+    // Getters y setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    public LocalDateTime getFecha() { return fecha; }
+    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+
+    public String getTabla() { return tabla; }
+    public void setTabla(String tabla) { this.tabla = tabla; }
+
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public Long getIdRegistro() { return idRegistro; }
+    public void setIdRegistro(Long idRegistro) { this.idRegistro = idRegistro; }
+
+    public String getUsuario() { return usuario; }
+    public void setUsuario(String usuario) { this.usuario = usuario; }
 }

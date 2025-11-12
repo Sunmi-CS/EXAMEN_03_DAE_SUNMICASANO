@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuditoriaRepository extends JpaRepository<Auditoria, Long> {
-    // No necesitamos métodos adicionales por ahora
 }
